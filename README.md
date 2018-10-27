@@ -1,7 +1,8 @@
-Study Golang
-===
+# Study Golang
 
-> This is just a study project.
+This repo is just for study. It recorded some codes when I studied Golang。 
+
+## 
 
 list:
 - [syntax](/syntax)
