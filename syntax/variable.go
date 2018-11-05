@@ -57,4 +57,27 @@ func main() {
 	// 声明了一个局部变量必须在相同的代码块中使用它 ( 全局变量例外 )
 	fmt.Println(va, vb, vc, a, b, c, d, f, g, h, i, u, v, w, x, y, z)
 
+	/**
+	关于变量名称，还有如下要点：
+	1. 字母或者下划线开头后面可以跟任意数量的自负，数字和下划线
+	2. 以下程序关键字不可以使用作为变量名称：
+		break 		default 	func 		interface 	select
+		case		defer		go			map			struct
+		chan		else		goto		package		switch
+		const		fallthrough	if			range		type
+		continue	for			import		return		var
+	3. 另外还有三十几个内置的预声明的常量/类型/函数
+		常量		true	false	iota	nil
+		类型		int		int8	int16	int32	int64
+				uint	uint8	uint16	uint32	uint64	uintptr
+				float32	float64	complex128	complex64
+				bool	byte	rune	string	error
+		函数		make	len		cap		new		append
+				copy	close	delete
+				complex	real	imag
+				panic	recover
+
+
+	*/
+
 }
