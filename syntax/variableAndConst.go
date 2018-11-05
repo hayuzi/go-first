@@ -8,6 +8,8 @@ var ( // 这种因式分解关键字的写法一般用于声明全局变量
 	vc string // 默认空字符串
 )
 
+const constNum1 = 1 // 声明常量，全局， 常量声明以后不能再次声明，并且不能被重新赋值
+
 func main() {
 	// ====================
 	// == 变量声明 ==
@@ -54,8 +56,17 @@ func main() {
 	// 不允许重复定义变量, 变量定以后不能再使用初始化变量的方式来赋值, 只能直接使用  j = value 这样的格式给变量赋新值
 	a = 32
 
+	// ===================
+	// 常量声明
+	const constNum2 = 2 // 局部常量
+	// 也可以使用如下方式声明
+	//const (
+	//	constNum3	= 3
+	//	constNum4	= 4
+	//)
+
 	// 声明了一个局部变量必须在相同的代码块中使用它 ( 全局变量例外 )
-	fmt.Println(va, vb, vc, a, b, c, d, f, g, h, i, u, v, w, x, y, z)
+	fmt.Println(va, vb, vc, a, b, c, d, f, g, h, i, u, v, w, x, y, z, constNum1, constNum2)
 
 	/**
 	关于变量名称，还有如下要点：
@@ -76,8 +87,6 @@ func main() {
 				copy	close	delete
 				complex	real	imag
 				panic	recover
-
-
 	*/
 
 }
