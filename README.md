@@ -13,6 +13,8 @@ This repo is just for study. It records some codes I wrote.
     - [typeBool.go](/syntax/typeBool.go)
     - [typeBool.go](/syntax/typeString.go)
     - [consts.go](/syntax/consts.go)
+    - [typeArray.go](/syntax/typeArray.go)
+    - [typeSlice.go](/syntax/typeSlice.go)
 
 
 ## Start

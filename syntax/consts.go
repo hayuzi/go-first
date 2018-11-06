@@ -71,4 +71,7 @@ func main() {
 	var z complex128 = math.Pi
 	fmt.Println(x, y, z)
 
+	// 无类型常量赋值给变量的时候，回隐式转换类型，目标类型如果不能表示原值，则会溢出，编译时候也不会通过
+	// 比如  f = unit(-1) 就不能通过编译
+
 }
