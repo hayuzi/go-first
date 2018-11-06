@@ -14,7 +14,7 @@ func main() {
 	// ====================
 	// == 变量声明 ==
 	// 变量声明有三种方式 (第一种与第二种方法可以用于声明全局变量, 第三种只能用来声明局部变量, 但是比较常用语简略)
-	// 第一种，指定变量类型，声明后若不赋值，使用默认值
+	// 第一种，指定变量类型，声明后若不赋值，使用默认值（ 零值 ）
 	var a int32 = 1 // 格式 var v_name v_type = value
 	var d uint      // 使用 默认值为 0
 	var f float32 = 1.2
@@ -56,20 +56,9 @@ func main() {
 	// 不允许重复定义变量, 变量定以后不能再使用初始化变量的方式来赋值, 只能直接使用  j = value 这样的格式给变量赋新值
 	a = 32
 
-	// ===================
-	// 常量声明
-	const constNum2 = 2 // 局部常量
-	// 也可以使用如下方式声明
-	//const (
-	//	constNum3	= 3
-	//	constNum4	= 4
-	//)
-
-	// 声明了一个局部变量必须在相同的代码块中使用它 ( 全局变量例外 )
-	fmt.Println(va, vb, vc, a, b, c, d, f, g, h, i, u, v, w, x, y, z, constNum1, constNum2)
-
 	/**
-	关于变量名称，还有如下要点：
+	=====================
+	关于变量名称，有如下要点：
 	1. 字母或者下划线开头后面可以跟任意数量的自负，数字和下划线
 	2. 以下程序关键字不可以使用作为变量名称：
 		break 		default 	func 		interface 	select
@@ -87,6 +76,20 @@ func main() {
 				copy	close	delete
 				complex	real	imag
 				panic	recover
+
+
 	*/
+
+	// ===================
+	// 常量声明
+	const constNum2 = 2 // 局部常量
+	// 也可以使用如下方式声明
+	//const (
+	//	constNum3	= 3
+	//	constNum4	= 4
+	//)
+
+	// 声明了一个局部变量必须在相同的代码块中使用它 ( 全局变量例外 )
+	fmt.Println(va, vb, vc, a, b, c, d, f, g, h, i, u, v, w, x, y, z, constNum1, constNum2)
 
 }
