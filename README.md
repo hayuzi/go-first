@@ -15,6 +15,8 @@ This repo is just for study. It records some codes I wrote.
     - [consts.go](/syntax/consts.go)
     - [typeArray.go](/syntax/typeArray.go)
     - [typeSlice.go](/syntax/typeSlice.go)
+    - [typeSlice.go](/syntax/typeMap.go)
+    - [typeSlice.go](/syntax/typeStruct.go)
 
 
 ## Start
