@@ -69,7 +69,7 @@ func main() {
     <title>Title</title>
 </head>
 <body>
-<h1>{{.TotalCount}}}</h1>
+<h1>{{.TotalCount}}</h1>
 <table>
     <tr style="text-align: left">
         <th>#</th>
