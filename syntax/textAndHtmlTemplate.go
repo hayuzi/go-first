@@ -23,6 +23,8 @@ type Issues struct {
 type Result struct {
 	TotalCount int
 	Items      []Issues
+	A          htmlTemplate.HTML
+	B          string
 }
 
 func main() {
@@ -60,7 +62,11 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// html模板
+	// html模板, html模版可以有效避免注入攻击，
+	// 如果想要将 html代码变量潜入到模板中并生效，需要在变量定义的时候就将变量 type设置为  template.HTML
+	var a htmlTemplate.HTML = "<br>11111</br>"
+	var b string = "<br>22222</br>"
+	var result2 = Result{TotalCount: 3, Items: items, A: a, B: b}
 	issuesHtml := htmlTemplate.Must(htmlTemplate.New("issuesList").Parse(`
 <!DOCTYPE html>
 <html lang="en">
@@ -85,11 +91,13 @@ func main() {
     </tr>
     {{end}}
 </table>
+<div>{{.A}}</div>
+<div>{{.B}}</div>
 </body>
 </html>
 `))
 
-	if err := issuesHtml.Execute(os.Stdout, result); err != nil {
+	if err := issuesHtml.Execute(os.Stdout, result2); err != nil {
 		log.Fatal(err)
 	}
 
