@@ -18,7 +18,7 @@ This repo is just for study. It records some codes I wrote.
     - [typeSlice.go](/syntax/typeMap.go)
     - [typeSlice.go](/syntax/typeStruct.go)
     - [json.go](/syntax/json.go)
-    - [textTemplate.go](/syntax/TextAndHtmlTemplate.go)
+    - [TextAndHtmlTemplate.go](/syntax/TextAndHtmlTemplate.go)
 
 
 
