@@ -51,6 +51,16 @@ type Wheel2 struct {
 	Spokes int
 }
 
+type Circle3 struct {
+	Point  // 匿名嵌入
+	Radius int
+}
+
+type Wheel3 struct {
+	Circle3
+	Spokes int
+}
+
 func main() {
 	var dilbert Employee
 
@@ -124,7 +134,7 @@ func main() {
 	w.Y = 8
 	w.Radius = 5
 	w.Spokes = 20
-	// 如上的访问方式访问对象的成员，但是创建结构体的时候比较麻烦，所以我们优化 Wheel 为 Wheel2
+	// 如上的访问方式访问对象的成员，但是创建结构体的时候比较麻烦，结构体可以嵌套，所以我们优化 Wheel 为 Wheel2
 	var w2 Wheel2
 	w2.Circle.Center.X = 8
 	w2.Circle.Center.Y = 8
@@ -133,6 +143,30 @@ func main() {
 	// 如此以来结构体的对象成员访问太麻烦了
 	// Go允许我们定义不带名称的结构体成员，只需要制定类型即可；
 	// 这种结构体成员叫做匿名成员， 这个结构体成员的类型必须是一个命名类型或者指向命名类型的指针
+	// 由于有匿名嵌套结构体的功能，我们可以直接访问到我们需要的变量而不是指定一大串中间变量
+	var w3 Wheel3
+	w3.X = 8       // 等价于 w3.Circle3.Point.X = 8
+	w3.Y = 8       // 等价于 w3.Circle3.Point.Y = 8
+	w3.Radius = 5  // 等价于 w3.Circle3.Radius = 5
+	w3.Spokes = 20 // 等价于 w3.Spokes = 20
+	// 上面注释里面的方式也是正确的，但是使用匿名成员的说法或许不合适
+	// 上面的结构体成员Circle3 和 Point是有名字的，就是对应类型的名字，只是浙西额名字在点好访问变量时候是可选的
+	// 当我们访问最终需要的变量的时候可以省略中间所有的匿名成员
+	// 遗憾的是， 结构体字面量并没有什么快捷方式来初始化结构体
+	w4 := Wheel3{Circle3{Point{8, 8}, 5}, 20}
+	w5 := Wheel3{
+		Circle3: Circle3{
+			Point:  Point{X: 8, Y: 8},
+			Radius: 5,
+		},
+		Spokes: 20,
+	}
+	fmt.Printf("%v\n", w4)  // 只输出值
+	fmt.Printf("%#v\n", w5) // 类似Go愈发的方式输出对象，这个方式里面包含了成员变量的名字
+
+	// .号访问匿名成员内部变量的语法糖，可以跨过不可导出结构体而访问其中的可导出成员
+	// 假如 w3内部的 circle与point是不可倒出的。
+	// w3.X依然可以访问 point中的X, 但是   w3.circle.point.X在包外部值是不可访问的
 
 }
 
