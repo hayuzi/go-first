@@ -27,8 +27,29 @@ type tree struct {
 	left, right *tree
 }
 
-type Point struct{ X, Y int}
+type Point struct{ X, Y int }
 
+// 定义一个结构体
+type Circle struct {
+	X, Y, Radius int
+}
+
+// 定义一个嵌套
+type Wheel struct {
+	X, Y, Radius, Spokes int
+}
+
+// Circle可以改造成如下结构体
+type Circle2 struct {
+	Center Point
+	Radius int
+}
+
+// Wheel可以改造成这样
+type Wheel2 struct {
+	Circle Circle2
+	Spokes int
+}
 
 func main() {
 	var dilbert Employee
@@ -55,7 +76,6 @@ func main() {
 	fmt.Println(s1)
 	fmt.Println(employeeOfTheMonth)
 
-
 	// =====================
 	// 5. 结构体字面量
 	// 格式一： 该格式必须按照正确的顺序给全部数据赋值， 一般用于有明显成员变量顺序约定的小结构体重
@@ -68,33 +88,51 @@ func main() {
 	// 以上两种初始化方式不可以混合使用，也不可以用第一种初始化方式来绕过不可导出变量无法在其他包中使用的规则
 	fmt.Println(p1, p2)
 
-
 	// ============
 	// 6. 结构体类型的值可以作为参数传递给函数或者作为函数的返回值
-	fmt.Println(Scale(Point{1,2}, 5))
+	fmt.Println(Scale(Point{1, 2}, 5))
 
 	// 出于效率的考虑，大型结构体通常使用结构体指针的方式直接传递给函数或者从函数中返回
 	// 这种方式在函数需要修改结构体内容的时候也是必须的，
 	// ** 在Go这种按照值调用的语言中，调用的函数接收到的是实参的一个副本，并不是实参的引用
- 	employeeOfTheMonth.Salary = 10000
+	employeeOfTheMonth.Salary = 10000
 	fmt.Println(dilbert)
 	Bonus(employeeOfTheMonth, 200)
 	fmt.Println(dilbert)
 
 	// 7. 由于通常结构体都通过指针的方式使用， 因此可以使用一种简单的方式来创建/初始化一个struct类型的变量并获取他的地址
-	pp := &Point{1,2}
+	pp := &Point{1, 2}
 	fmt.Println(pp)
 
 	pp2 := new(Point)
-	*pp2 = Point{1,2}
+	*pp2 = Point{1, 2}
 	fmt.Println(pp2)
 
+	// 8. 结构体比较
+	// 结构体可以使用  == 以及 != 比较。
+	// 和其他可以比较的类型一样，可比较的结构体类型都可以作为 map的键类型
 
+	p5 := Point{1, 2}
+	p6 := Point{1, 2}
+	fmt.Println(p5, p6, p5 == p6)
 
-
-
-
-
+	// 9. 结构体嵌套和匿名成员
+	// 以上创建了好几个对象， Circle Wheel 等
+	// 创建一个Wheel类型的对象
+	var w Wheel
+	w.X = 8
+	w.Y = 8
+	w.Radius = 5
+	w.Spokes = 20
+	// 如上的访问方式访问对象的成员，但是创建结构体的时候比较麻烦，所以我们优化 Wheel 为 Wheel2
+	var w2 Wheel2
+	w2.Circle.Center.X = 8
+	w2.Circle.Center.Y = 8
+	w2.Circle.Radius = 5
+	w2.Spokes = 20
+	// 如此以来结构体的对象成员访问太麻烦了
+	// Go允许我们定义不带名称的结构体成员，只需要制定类型即可；
+	// 这种结构体成员叫做匿名成员， 这个结构体成员的类型必须是一个命名类型或者指向命名类型的指针
 
 }
 
@@ -132,14 +170,13 @@ func add(t *tree, value int) *tree {
 }
 
 func Scale(p Point, factor int) Point {
-	return Point{ p.X * factor, p.Y * factor}
+	return Point{p.X * factor, p.Y * factor}
 }
-
 
 func Bonus(e *Employee, percent int) int {
 	return e.Salary * percent / 100
 }
 
-func AwardAnnualRaise(e * Employee) {
-	e.Salary = e.Salary * 105 /100
+func AwardAnnualRaise(e *Employee) {
+	e.Salary = e.Salary * 105 / 100
 }
