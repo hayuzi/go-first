@@ -21,6 +21,8 @@ This repo is just for study. It records some codes I wrote.
     - [TextAndHtmlTemplate.go](/syntax01/TextAndHtmlTemplate.go)
 - [syntax02](/syntax02)
     - [function.go](/syntax02/function.go)
+    - [objectFunc.go](/syntax02/objectFunc.go)
+    - [interface.go](/syntax02/interface.go)
 
 
 
