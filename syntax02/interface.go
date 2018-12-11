@@ -5,7 +5,6 @@ import "fmt"
 // ===================
 // 接口即约定，该处暂不做详细解释
 
-
 // ===================
 // 1. 接口类型
 // 一个接口类型定义了一套方法，如果一个具体类型要实现该接口，那么必须实现接口类型定义中的所有方法
@@ -31,24 +30,23 @@ type ReadWriter interface {
 // 同理，一个对象可以实现任意多个interface
 // 最后，任意的类型都实现了空interface(我们这样定义：interface{})，也就是包含0个method的interface。
 
-
 // 以下是一个示例
 type Human struct {
-	name string
-	age int
+	name  string
+	age   int
 	phone string
 }
 
 type Student struct {
-	Human //匿名字段Human
+	Human  //匿名字段Human
 	school string
-	loan float32
+	loan   float32
 }
 
 type Employee struct {
-	Human //匿名字段Human
+	Human   //匿名字段Human
 	company string
-	money float32
+	money   float32
 }
 
 //Human对象实现Sayhi方法
@@ -63,18 +61,18 @@ func (h Human) Sing(lyrics string) {
 }
 
 // Employee重载Human的Sayhi方法
-func (e *Employee) SayHi() {
+func (e Employee) SayHi() {
 	fmt.Printf("Hi, I am %s, I work at %s. Call me on %s\n", e.name,
 		e.company, e.phone) //此句可以分成多行
 }
 
 //Student实现BorrowMoney方法
-func (s *Student) BorrowMoney(amount float32) {
+func (s Student) BorrowMoney(amount float32) {
 	s.loan += amount // (again and again and...)
 }
 
 //Employee实现SpendSalary方法
-func (e *Employee) SpendSalary(amount float32) {
+func (e Employee) SpendSalary(amount float32) {
 	e.money -= amount // More vodka please!!! Get me through the day!
 }
 
@@ -96,6 +94,9 @@ type ElderlyGent interface {
 	SpendSalary(amount float32)
 }
 
+//----------------
+type Element interface{}
+type List []Element
 
 func main() {
 
@@ -131,10 +132,9 @@ func main() {
 	//这三个都是不同类型的元素，但是他们实现了interface同一个接口
 	x[0], x[1], x[2] = paul, sam, mike
 
-	for _, value := range x{
+	for _, value := range x {
 		value.SayHi()
 	}
-
 
 	// =====================
 	// 4. 空interface
@@ -144,5 +144,22 @@ func main() {
 	// 它有点类似于C语言的void*类型。
 	// 一个函数把interface{}作为参数，那么他可以接受任意类型的值作为参数，如果一个函数返回interface{},那么也就可以返回任意类型的值。
 
+	// =====================
+	// 5.类型 断言
+	// Go语言里面有一个语法，可以直接判断是否是该类型的变量： value, ok = element.(T)，
+	// 这里value就是变量的值，ok是一个bool类型，element是interface变量，T是断言的类型。
+	// 如果element里面确实存储了T类型的数值，那么ok返回true，否则返回false。
+	list := make(List, 3)
+	list[0] = 1       // an int
+	list[1] = "Hello" // a string
+	for index, element := range list {
+		if value, ok := element.(int); ok {
+			fmt.Printf("list[%d] is an int and its value is %d\n", index, value)
+		} else if value, ok := element.(string); ok {
+			fmt.Printf("list[%d] is a string and its value is %s\n", index, value)
+		} else {
+			fmt.Printf("list[%d] is of a different type\n", index)
+		}
+	}
 
 }
