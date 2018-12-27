@@ -2,6 +2,9 @@ package main
 
 import (
 	"fmt"
+	"io"
+	"os"
+	//"bytes"
 )
 
 // ===================
@@ -163,10 +166,28 @@ func main() {
 	// 参考 sample 文件夹中的 SortTest
 
 	// =====================
-	// 5.类型 断言
+	// 5.类型 断言   (常用来识别错误或者查询特性)
 	// Go语言里面有一个语法，可以直接判断是否是该类型的变量： value, ok = element.(T)，
 	// 这里value就是变量的值，ok是一个bool类型，element是interface变量，T是断言的类型。
 	// 如果element里面确实存储了T类型的数值，那么ok返回true，否则返回false。
+	//
+	// 5.1 如果断言类型T是一个具体类型，那么断言会检查element的会价差x的动态类型是否就是T，如果检查成功，类型断言的结果就是 element 的动态值
+	// 换句话说，类型断言就是用来从它的操作数中把具体类型的值提取出来的操作。
+
+	// 5.2 如果断言类型T是一个接口类型，那么类型断言检查element的动态类型是否满足T，如果检查成功，动态值并没有提取出来，结果仍然是一个接口值.
+	// 从一个接口类型变为拥有另外一套方法的接口类型（通常发发数量是增多），但保留了接口值中的动态类型和动态值部分
+	var w io.Writer
+	w = os.Stdout
+	f := w.(*os.File) 	// 成功 f == os.Stdout
+	// c := w.(*bytes.Buffer)	// 崩溃：接口持有的是 *os.File, 不是 *bytes.Buffer
+	fmt.Println(f)
+	// fmt.Println(c)
+
+	rw := w.(io.ReadWriter)
+	fmt.Println(rw)
+	fmt.Printf("%T", rw)
+
+	// 如果使用两个结果的赋值表达式，断言不会在失败的时候崩溃， 而是返回一个布尔类型的表达式
 	list := make(List, 3)
 	list[0] = 1       // an int
 	list[1] = "Hello" // a string
@@ -179,5 +200,36 @@ func main() {
 			fmt.Printf("list[%d] is of a different type\n", index)
 		}
 	}
+
+	// 6. 类型分支
+	var m int
+	m = 1
+	switch m.(type) {
+	case nil:
+		fmt.Println("nil")
+		break
+	case int:
+		fmt.Println("int")
+		break
+	default:
+		fmt.Println("default")
+	}
+
+
+	// 重新命名的变量，在语法块中会替换
+	switch m := m.(type) {
+	case nil:
+		fmt.Println("nil")
+		break
+	case int:
+		fmt.Println(m)
+		fmt.Println("int")
+		break
+	default:
+		fmt.Println("default")
+	}
+
+
+
 
 }
