@@ -1,11 +1,11 @@
 package main
 
 import (
-	"time"
 	"fmt"
+	"time"
 )
 
-func main(){
+func main() {
 	// ===============
 	// 1. Go中每一个并发执行的活动称为goroutine
 	// 当程序执行的时候，一个go语句是在普通的函数或者方法调用前加上 go关键字前缀。
@@ -14,25 +14,25 @@ func main(){
 	// 这段程序在主 goroutine 中创建了一个新的goroutine,
 	// 在main函数执行完成时，所有的goroutine都暴力的直接终止
 	go spinner(100 * time.Millisecond)
-	const n = 45
+	const n = 5
 	fibN := fib(n)
 	fmt.Printf("\rFibonacci(%d) = %d\n", n, fibN)
-
 
 	// ================
 	// 2. 通道 channel
 	// 通道是可以让一个goroutine发送特定值到另一个goroutine的通信机制
 	// 每一个通道是一个具体类型的导管叫做通道的元素类型
 	// 一个有 int类型元素的通道写为 chan int
-	ch := make(chan int)	// ch 的类型是 chan int
+	ch := make(chan int) // ch 的类型是 chan int
 
 	// 通道是一个使用make 创建的数据结构的引用.  当赋值或者作为参数传递到一个函数时, 复制的是引用.
 	// 通道零值是  nil,  可以使用 == 比较, 当两者是同一个通道数据的引用时候, 通道相等
 	// 通道有两个主要操作 发送和接收，两者统称为通信
 	x := 1
-	ch <- x 	// 发送语句
-	x = <-ch	// 赋值语句中的接收者表达式
-	<-ch		// 接收语句, 丢弃结果
+	ch <- x // 发送语句
+	// 此处程序被阻塞了。需要在另一个goroutine中操作接收
+	x = <-ch // 赋值语句中的接收者表达式
+	<-ch     // 接收语句, 丢弃结果
 
 	// 通道可以关闭. 它设置一个标志位来指示值当前已经发送完毕，这个通道后面没有值了; 关闭后的发送操作将导致宕机.
 	// 在一个已经关闭的通道上进行接收操作，将获取所有已经发送的值，直到通道为空;
@@ -57,31 +57,28 @@ func main(){
 	// func(out chan<- int)
 	// func(in <-chan int)
 
-
 	// =================
 	// 2.2 缓冲通道 (异步通道)
 	// 缓冲通道有一个元素队列, 队列的最大长度在创建的时候被设置
 	// 在队列未满的时候, 通道可以无阻塞的发送, 但如果队列已经满了,
 	// 发送操作会阻塞所在的goroutine直到另一个goroutine对它戒行接收操作来留出可用空间.
-	// 反过来，如果通道是空的, 执行接收操作的goroutine阻塞, 直到另一个goroutine在通道傻姑娘发送数据
+	// 反过来，如果通道是空的, 执行接收操作的goroutine阻塞, 直到另一个goroutine在通道上发送数据
+	ch2 := make(chan int, 5)
+	m := cap(ch2) // 查看容量
+	y := len(ch2) // 查看当前通道中有多少元素
+	fmt.Println(m)
+	fmt.Println(y)
+	close(ch2)
 
-	// 3.2 =============
-	// 4.
-
-
-
-
-
+	//  =============
+	// 3.
 
 	// ================
 	// 2.2  ()
 
-
-
-
 }
 
-func spinner (delay time.Duration) {
+func spinner(delay time.Duration) {
 	for {
 		for _, r := range `-\|/` {
 			fmt.Printf("\r%c", r)
