@@ -3,7 +3,7 @@
 This repo is just for study. It records some codes I wrote.
 
 
-Base on < The Go Programming Language >
+> refer to < The Go Programming Language >
 
 ## Sequence
 - [hello.go](/hello.go)
