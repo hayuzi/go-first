@@ -23,6 +23,7 @@ This repo is just for study. It records some codes I wrote.
     - [function.go](/syntax02/function.go)
     - [objectFunc.go](/syntax02/objectFunc.go)
     - [interface.go](/syntax02/interface.go)
+    - [goroutine.go](/syntax02/goroutine.go)
 
 
 

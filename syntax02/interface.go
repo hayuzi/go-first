@@ -201,7 +201,7 @@ func main() {
 		}
 	}
 
-	// 6. 类型分支
+	// 6. 类型s分支
 	var m int
 	m = 1
 	switch m.(type) {
