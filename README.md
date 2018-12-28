@@ -46,5 +46,15 @@ go build hello.go
 gofmt [flags] [path ...]
 ```
 
+## package
+
+```
+# 下载 golang.org/x 下的包
+mkdir -p $GOPATH/src/golang.org/x
+cd $GOPATH/src/golang.org/x
+git clone https://github.com/golang/net.git
+
+```
+
 
 
