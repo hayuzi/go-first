@@ -2,6 +2,9 @@
 
 This repo is just for study. It records some codes I wrote.
 
+
+Base on < The Go Programming Language >
+
 ## Sequence
 - [hello.go](/hello.go)
 - [syntax01](/syntax01)
@@ -42,3 +45,6 @@ go build hello.go
 ```
 gofmt [flags] [path ...]
 ```
+
+
+
