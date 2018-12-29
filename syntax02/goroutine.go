@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"time"
+	"os"
 )
 
 func main() {
@@ -28,11 +29,12 @@ func main() {
 	// 通道是一个使用make 创建的数据结构的引用.  当赋值或者作为参数传递到一个函数时, 复制的是引用.
 	// 通道零值是  nil,  可以使用 == 比较, 当两者是同一个通道数据的引用时候, 通道相等
 	// 通道有两个主要操作 发送和接收，两者统称为通信
-	x := 1
-	ch <- x // 发送语句
-	// 此处程序被阻塞了。需要在另一个goroutine中操作接收
-	x = <-ch // 赋值语句中的接收者表达式
-	<-ch     // 接收语句, 丢弃结果
+
+	// x := 1
+	// ch <- x // 发送语句
+	// // 此处程序被阻塞了。需要在另一个goroutine中操作接收
+	// x = <-ch // 赋值语句中的接收者表达式
+	// <-ch     // 接收语句, 丢弃结果
 
 	// 通道可以关闭. 它设置一个标志位来指示值当前已经发送完毕，这个通道后面没有值了; 关闭后的发送操作将导致宕机.
 	// 在一个已经关闭的通道上进行接收操作，将获取所有已经发送的值，直到通道为空;
@@ -77,6 +79,40 @@ func main() {
 
 	// ================
 	// 3. select 多路复用
+	//
+	// select像 switch 语句一样, 有一些列的情况和一个可选的默认分支.
+	// 每一个情况指定一次通信（在一些通道上进行发送或接收操作）和关联的一段代码块。
+	// 接收表达式操作可能出现在它本身上， 像第一个情况，或者在一个端变量声明中，像第二个情况；
+	// 第二种形式可以让你引用所接收的值。
+
+	// select 一直等待, 直到一次通信开告知有一些情况可以执行。然后，它进行这次通信，执行此情况对应的语句；其他的通信将不会发生
+	// 对于没有对应情况的select， select{} 将永远等待
+
+	// *** 如果多个情况同时满足，select随机选择一个，这样保证每一个通道有相同的机会被选中 ***
+	abort := make(chan struct{})
+	go func() {
+		os.Stdin.Read(make([]byte, 1)) // 读取单个字节
+		abort <- struct{}{}
+	}()
+
+	fmt.Println("Commencing countdown. Press return to abort.")
+	select {
+	case <-time.After(10 * time.Second):
+		// 不执行任何操作
+	case <-abort:
+		fmt.Println("Launch aborted!")
+	}
+
+
+	// ========================
+	// 4. 取消
+	// 一个goroutine无法终止另外一个，因为这样会让所有的共享变量出于不确定状态。
+	// 因此我们如果像取消两个或者指定个数的 goroutine 不得不做一些其他的操作
+
+	// 取消机制 参考 sample/du1
+
+
+
 
 }
 
@@ -94,4 +130,16 @@ func fib(x int) int {
 		return x
 	}
 	return fib(x-1) + fib(x-2)
+}
+
+
+var done = make(chan struct{})
+
+func cancelled() bool {
+	select {
+	case <-done:
+		return true
+	default:
+		return false
+	}
 }
