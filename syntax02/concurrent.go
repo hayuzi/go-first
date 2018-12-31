@@ -78,6 +78,8 @@ func main() {
 	// 简答的把 -race 参数加入到  go build、 go run、go test 命令李即可使用该功能
 
 
+	// ======================
+	// 6.示例：并发非阻塞缓存 参考 sample/memo.go
 
 
 
