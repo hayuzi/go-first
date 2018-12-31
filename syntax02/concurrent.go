@@ -82,7 +82,24 @@ func main() {
 	// 6.示例：并发非阻塞缓存 参考 sample/memo.go
 
 
+	// ====================
+	// 7. 可增长的栈
+	// 每一个OS线程都有一个固定大小的栈内存（通常为 2M）
 
+	// goroutine 一开始只有一个很小的栈，典型情况下为 2KB。
+	// 与OS线程类似，goroutine的栈 也用于存放那些正在执行或临时暂停的函数中的局部变量。
+	// 但是与OS线程有所不通的是， goroutine的栈不是固定大小的，它可以按需增大和缩小。
+	// goroutine的栈大小限制可以达到1GB，比线程电信的固定大小栈高几个数量级。
+
+
+	// ====================
+	// 8. goroutine 调度 与 GOMAXPROCS
+	// goroutine调度是由Go运行时候自己的调度器处理的。
+
+	// Go调度器使用 GOMAXPROCS 参数来确定需要使用多少个OS线程来同时执行Go代码，默认是机器上的CPU数量
+	// 可以使用GOMAXPROCS环境变量 活着 runtime.GOMAXPROCS 函数来显式的控制这个参数
+
+	// goroutine没有标识
 
 
 

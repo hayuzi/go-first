@@ -52,6 +52,7 @@ func (memo *Memo) server(f Func) {
 			cache[req.key] = e
 			go e.call(f, req.key)
 		}
+		go e.deliver(req.response)
 	}
 }
 
