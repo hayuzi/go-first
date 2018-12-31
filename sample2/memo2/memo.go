@@ -1,3 +1,4 @@
+// memo2是一个缓存管理包
 package memo2
 
 // request 是一条请求消息, key需要用func来调用
