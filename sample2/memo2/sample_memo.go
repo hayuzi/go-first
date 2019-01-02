@@ -1,11 +1,11 @@
-package memo
+package memo2
 
 import (
-	"math/rand"
-	"time"
 	"fmt"
 	"log"
+	"math/rand"
 	"sync"
+	"time"
 )
 
 func TestMemoGet() {
@@ -26,6 +26,7 @@ func TestMemoGet() {
 		}(s)
 	}
 	n.Wait()
+	m.Close()
 }
 
 func initCacheValue(key string) (interface{}, error) {
