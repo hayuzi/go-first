@@ -27,7 +27,9 @@ This repo is just for study. It records some codes I wrote.
     - [objectFunc.go](/syntax02/objectFunc.go)
     - [interface.go](/syntax02/interface.go)
     - [goroutine.go](/syntax02/goroutine.go)
-
+- [goTool](/goTool)
+    - [tool.md](/goTool/tool.md)
+    - [test.md](/goTool/test.md)
 
 
 ## Start
