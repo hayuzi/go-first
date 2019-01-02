@@ -60,3 +60,11 @@ godoc -http :8000
 go list
 
 ```
+
+
+### 7. go test 工具
+```
+
+
+
+```
