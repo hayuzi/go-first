@@ -67,11 +67,19 @@ func main() {
 
 	// 普通指针与 unsafe.Pointer可以互相转换，而且从 unsafe.Pointer转回普通指针的时候，可以不必和原来的类型 *T相同
 
-
-
-
+	fmt.Printf("%#016x\n", Float64bits(1.0))
 
 
 	// ==================
-	// cgo 工具
+	// cgo 工具 , 使用 cgo调用 c代码
+	// cgo 是用来为 C函数创建Go绑定的工具。注入此类的工具都叫做 外部函数接口 ( FFI )
+	// 其他类似工具还有  SWIG
+
+
+
+}
+
+
+func Float64bits(f float64) uint64 {
+	return *(*uint64)(unsafe.Pointer(&f))
 }
