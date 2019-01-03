@@ -103,7 +103,8 @@ func main() {
 	// 每个 t.Method(i) (从reflect.Type 调用) 都会返回一个reflect.Method类型的实例,
 	// 这个结构类型描述了这个方法的名称和类型
 
-
+	// 而每个 v.Method(i) (从reflect.Value调用) 都会返回一个 reflect.Value, 代表一个方法值, 即一个已绑定接收者的方法
+	// 使用 reflect.Value.Call 方法可以调用 Func 类型的Value
 
 
 
