@@ -65,3 +65,8 @@ go list
 ### 7. go test 工具
 
 参考 [test.md](./test.md)
+
+
+### 8. go mod 工具
+go module 的使用
+可以在go module方式下，使用goproxy来解决包被墙的问题
