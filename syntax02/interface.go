@@ -207,24 +207,23 @@ func main() {
 	switch m.(type) {
 	case nil:
 		fmt.Println("nil")
-		break
 	case int:
 		fmt.Println("int")
-		break
 	default:
 		fmt.Println("default")
 	}
 
 
 	// 重新命名的变量，在语法块中会替换
+	// switch 默认情况下 case 最后自带 break 语句，匹配成功后就不会执行其他 case，
+	// 如果我们需要执行后面的 case，可以使用 fallthrough
+	// 使用 fallthrough 会强制执行后面的 case 语句，fallthrough 不会判断下一条 case 的表达式结果是否为 true。
 	switch m := m.(type) {
 	case nil:
 		fmt.Println("nil")
-		break
 	case int:
 		fmt.Println(m)
 		fmt.Println("int")
-		break
 	default:
 		fmt.Println("default")
 	}
