@@ -82,6 +82,7 @@ export GOPROXY=https://goproxy.io
 $env:GOPROXY = "https://goproxy.io"
 最后，我们当然推荐使用 GOPROXY 这个环境变量的解决方式，前提是 Go version >= 1.11 。
 
+其他的代理还包括 https://goproxy.cn 等
 
 
 ## fmt.Printf的转义字符
